@@ -10,4 +10,5 @@ class UserProfile extends Model
     use HasFactory;
 
     public $timestamps = false;
+    protected $table = 'user_profile';
 }

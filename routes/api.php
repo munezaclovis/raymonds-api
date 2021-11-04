@@ -30,26 +30,12 @@ Route::prefix('v1')->group(function (){
 
         Route::get('logout', [AuthenticationController::class, 'logout']);
 
-        Route::apiResource('users', UsersController::class);
         Route::apiResource('roles', RolesController::class);
+        Route::apiResource('users', UsersController::class);
         Route::apiResource('books', BooksController::class);
         Route::apiResource('theme-settings', ThemeSettingsController::class);
     });
 
     Route::post('login', [AuthenticationController::class, 'login']);
     Route::post('register', [AuthenticationController::class, 'register']);
-    Route::post('test', function (UserProfileRequest $request) {
-        // $asd = [];
-        // foreach ($request->file('image') as $index){
-        //     $asd[] = $index->getRealPath();
-        // }
-        return Cloudinary::upload(
-            array_map(function ($image) {
-                return $image->getRealPath();
-            }, 
-            $request->file('image'))
-        )->getSecurePath();
-        
-        return User::find(10);
-    });
 });

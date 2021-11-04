@@ -48,9 +48,9 @@ class ThemeSettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ThemeSettingsRequest $request, $id)
+    public function update(ThemeSettingsRequest $request)
     {
-        $themeSettings = ThemeSettings::find($id);
+        $themeSettings = ThemeSettings::where('user_id', $request->user()->id);
         $themeSettings->update([
             'themeColor' => $request->input('themeColor'),
             'fontStyle' => $request->input('fontStyle'),

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RolesRequest;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,9 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
+        if($request->input('page') && $request->input('page')=='all'){
+            return Role::all();
+        }
         return Role::paginate($request->input('page_size') ?? 15);
     }
 
@@ -33,9 +37,9 @@ class RolesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RolesRequest $request)
     {
-        //
+        return Role::create(['name' => $request->input('name')]);
     }
 
     /**
@@ -46,7 +50,7 @@ class RolesController extends Controller
      */
     public function show(Role $role)
     {
-        //
+        return $role;
     }
 
     /**
@@ -67,9 +71,9 @@ class RolesController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(RolesRequest $request, Role $role)
     {
-        //
+        return $role->update(['name' => $request->input('name')]);
     }
 
     /**

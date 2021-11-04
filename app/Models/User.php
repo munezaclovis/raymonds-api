@@ -45,7 +45,7 @@ class User extends Authenticatable
         'updated_at' => 'datetime:Y-m-d'
     ];
 
-    protected $appends = ['role', 'user_profile'];
+    protected $appends = ['role', 'user_profile', 'theme_settings'];
 
     public function findForPassport($identifier)
     {
@@ -57,8 +57,13 @@ class User extends Authenticatable
         return $this->hasOne(ThemeSettings::class);
     }
 
+    public function getThemeSettingsAttribute()
+    {
+        return $this->themeSettings();
+    }
+
     public function role(){
-        return $this->hasOneThrough(Role::class, UserRole::class);
+        return $this->hasOne(UserRole::class);
     }
 
     public function getRoleAttribute(){
